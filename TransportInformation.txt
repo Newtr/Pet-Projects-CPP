@@ -1,0 +1,6 @@
+Type: Car Speed: 90 km/h
+Type: Bus Speed: 25 km/h 
+Type: Minibus Speed: 28 km/h
+Type: Train Speed: 32 km/h
+Type: Bike Speed: 15 km/h
+Type: OnFoot Speed: 5 km/h
