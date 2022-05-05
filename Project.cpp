@@ -18,12 +18,12 @@ struct Transport{
 } */
 
 enum TransportClass{
-    CAR,
-    BUS,
-    MINIBUS,
-    TRAIN,
-    BIKE,
-    ONFOOT,
+    CAR = 4,
+    BUS = 90,
+    MINIBUS = 20,
+    TRAIN = 50,
+    BIKE = 2,
+    ONFOOT = 0,
 };
 
 enum CitiesRange{
@@ -48,11 +48,11 @@ enum CitiesRange{
     GOMEL_MOGILEV = 174
 };
 
-void Calculate(Transport& ex, CitiesRange cit, int spd){
+void Calculate(Transport& ex, CitiesRange cit, int spd, TransportClass tr){
     ex.MaxRange = cit;
     ex.Speed = spd;
     ex.Time = (ex.MaxRange/ex.Speed)*60;
-    ex.TicketCost = (ex.MaxRange*1000)/ex.Time;
+    ex.TicketCost = ex.MaxRange/tr;
 }
 
 int TakeSpeed(Transport tr, int choose){
@@ -262,22 +262,48 @@ void FindCityRange(int Ind1, int Ind2, CitiesRange& Rg){
     }
 }
 
+void FindMyTransp(TransportClass& Tr, int userchoose){
+    switch (userchoose)
+    {
+    case 1:
+        Tr = CAR;
+        break;
+    case 2:
+        Tr = BUS;
+        break;
+    case 3:
+        Tr = MINIBUS;
+        break;
+    case 4:
+        Tr = TRAIN;
+        break;
+    case 5:
+        Tr = BIKE;
+        break;
+    case 6:
+        Tr = ONFOOT;
+        break;
+    }
+}
+
 int main(){
     int choose, CityIndex1=0, CityIndex2=0, speed;
     Transport MyTransport;
     string from, to;
     CitiesRange Range;
+    TransportClass Transp;
     cout<<"Choose vehicle: 1) Car 2) Bus 3) Minibus 4) Train 5) Bike 6) On Foot"<<endl;
     cin>>choose;
+    FindMyTransp(Transp, choose);
     speed = TakeSpeed(MyTransport,choose);
     cout<<"You going from : ";  cin>>from;
     cout<<"Going to : ";    cin>>to;
     TakeIndex(from,CityIndex1);
     TakeIndex(to,CityIndex2);
-    cout<<"1 = "<<CityIndex1<<" 2 = "<<CityIndex2<<endl;
+/*     cout<<"1 = "<<CityIndex1<<" 2 = "<<CityIndex2<<endl; */
     FindCityRange(CityIndex1,CityIndex2,Range);
-    cout<<"Vot = "<<Range<<endl;
-    Calculate(MyTransport,Range,speed);
+/*     cout<<"Vot = "<<Range<<endl; */
+    Calculate(MyTransport,Range,speed,Transp);
     cout<<"Примерное время составит: "<<MyTransport.Time<<" минут"<<endl;
     cout<<"Стоимость составит: "<<MyTransport.TicketCost<<"$"<<endl;
 }
